@@ -13,6 +13,7 @@ export type Verdict = "more" | "cut" | "right";
 
 export type Analysis = {
   days: StreamDay[];
+  periodDays: number; // calendar days the export covers
   streamsPerMonth: number;
   viewers: number; // median avg viewers
   hours: number; // median stream length
@@ -68,7 +69,10 @@ function fitLimit(points: { x: number; y: number }[]) {
   return best;
 }
 
-export function analyze(days: StreamDay[], streamsPerMonth = days.length): Analysis {
+/** `periodDays` = how many calendar days the export covers (30, 90, …). */
+export function analyze(days: StreamDay[], periodDays = 30): Analysis {
+  // One decimal, so the "See the math" lines multiply out to the total.
+  const streamsPerMonth = Math.round(((days.length * 30) / Math.max(periodDays, days.length)) * 10) / 10;
   const points = days.map((d) => ({ x: d.adMinutes, y: d.revenue / (d.viewers / 1000) }));
   const fit = fitLimit(points);
 
@@ -90,6 +94,7 @@ export function analyze(days: StreamDay[], streamsPerMonth = days.length): Analy
 
   return {
     days,
+    periodDays,
     streamsPerMonth,
     viewers,
     hours,

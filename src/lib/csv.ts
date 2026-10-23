@@ -30,7 +30,7 @@ const find = (headers: string[], ...needles: RegExp[]) =>
   headers.findIndex((h) => needles.every((n) => n.test(h)));
 
 export type ParseResult =
-  | { ok: true; days: StreamDay[]; skipped: number }
+  | { ok: true; days: StreamDay[]; skipped: number; periodDays: number }
   | { ok: false; error: string };
 
 export function parseTwitchCsv(text: string): ParseResult {
@@ -78,5 +78,7 @@ export function parseTwitchCsv(text: string): ParseResult {
   if (days.length < 5) {
     return { ok: false, error: err.tooFewDays };
   }
-  return { ok: true, days, skipped };
+  // The export has one row per calendar day, streamed or not, so the row
+  // count is the length of the period (30 days, 90 days, …).
+  return { ok: true, days, skipped, periodDays: lines.length - 1 };
 }

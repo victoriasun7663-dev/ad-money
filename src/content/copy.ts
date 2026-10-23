@@ -12,7 +12,7 @@ export const copy = {
   hook: {
     headline: "Find your ad",
     headlineAccent: "sweet spot",
-    sub: "Upload one file from Twitch. In 2 minutes you'll know, in dollars, what to change.",
+    sub: "Upload your last 30 days from Twitch (or 3 months if you stream less). In 2 minutes you'll know, in dollars, what to change.",
     perksLabel: "YOU GET",
     perks: [
       { title: "Your money gap", body: "How much more you could make each month" },
@@ -30,7 +30,7 @@ export const copy = {
     // **bold** marks the words shown in bold.
     steps: [
       "Go to **dashboard.twitch.tv** and open **Analytics**",
-      "Pick **Last 30 days**",
+      "Pick **Last 30 days**. Stream less than 3 times a week? Pick **the last 3 months** instead.",
       "Click **Export**. A file downloads.",
     ],
     dropTitle: "Drop the file here",
@@ -42,7 +42,7 @@ export const copy = {
       empty: "That file looks empty.",
       missingColumns: (what: string) =>
         `We couldn't find ${what} in this file. Make sure it's the Channel Analytics export.`,
-      tooFewDays: "We need at least 5 stream days with ads to give you a real answer.",
+      tooFewDays: "We need at least 5 stream days with ads to give you a real answer. Try exporting the last 3 months.",
       columnNames: { viewers: "average viewers", adMinutes: "ad minutes", adRevenue: "ad revenue" },
     },
   },
@@ -83,8 +83,8 @@ export const copy = {
     effort: "1 setting, 2 minutes",
     ctaPlan: "Show me what to change",
     ctaMath: "How did you get this number?",
-    footer: (who: "sample" | "you", viewers: string, streams: number) =>
-      `${who === "sample" ? "Example channel" : "Your channel"} · ${viewers} avg viewers · ${streams} streams`,
+    footer: (who: "sample" | "you", viewers: string, streams: number, periodDays: number) =>
+      `${who === "sample" ? "Example channel" : "Your channel"} · ${viewers} avg viewers · ${streams} streams in ${periodDays} days`,
   },
 
   plan: {

@@ -20,7 +20,7 @@ export default function Upload() {
     if (!file) return;
     const result = parseTwitchCsv(await file.text());
     if (!result.ok) return setError(result.error);
-    setDays(result.days, "upload");
+    setDays(result.days, "upload", result.periodDays);
     router.push("/result");
   }
 

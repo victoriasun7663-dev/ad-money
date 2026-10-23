@@ -12,7 +12,7 @@ type Ctx = {
   days: StreamDay[] | null;
   source: Source | null;
   analysis: Analysis | null;
-  setDays: (days: StreamDay[], source: Source) => void;
+  setDays: (days: StreamDay[], source: Source, periodDays?: number) => void;
   loadSample: () => void;
   clear: () => void;
 };
@@ -21,7 +21,7 @@ const KEY = "ad-money:v1";
 const AdMoneyContext = createContext<Ctx | null>(null);
 
 export function AdMoneyProvider({ children }: { children: React.ReactNode }) {
-  const [state, setState] = useState<{ days: StreamDay[]; source: Source } | null>(null);
+  const [state, setState] = useState<{ days: StreamDay[]; source: Source; periodDays?: number } | null>(null);
 
   useEffect(() => {
     try {
@@ -41,8 +41,8 @@ export function AdMoneyProvider({ children }: { children: React.ReactNode }) {
     return {
       days: state?.days ?? null,
       source: state?.source ?? null,
-      analysis: state ? analyze(state.days) : null,
-      setDays: (days, source) => save({ days, source }),
+      analysis: state ? analyze(state.days, state.periodDays ?? 30) : null,
+      setDays: (days, source, periodDays = 30) => save({ days, source, periodDays }),
       loadSample: () => save({ days: SAMPLE_DAYS, source: "sample" }),
       clear: () => save(null),
     };

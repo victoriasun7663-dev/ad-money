@@ -84,7 +84,7 @@ export default function Result() {
               {t.ctaMath}
             </Link>
             <span className="text-center text-xs text-faint">
-              {t.footer(source === "sample" ? "sample" : "you", money(a.viewers).slice(1), a.days.length)}
+              {t.footer(source === "sample" ? "sample" : "you", money(a.viewers).slice(1), a.days.length, a.periodDays)}
             </span>
           </div>
         </Screen>
