@@ -45,6 +45,23 @@ export function Card({ children, className = "" }: { children: React.ReactNode; 
   return <div className={`rounded-2xl border border-line bg-panel p-4 ${className}`}>{children}</div>;
 }
 
+/** Renders copy strings, turning **double-asterisk** runs into bold. */
+export function Rich({ text, strongClass }: { text: string; strongClass?: string }) {
+  return (
+    <>
+      {text.split(/(\*\*[^*]+\*\*)/g).map((part, i) =>
+        part.startsWith("**") && part.endsWith("**") ? (
+          <strong key={i} className={strongClass}>
+            {part.slice(2, -2)}
+          </strong>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  );
+}
+
 export function Eyebrow({ children }: { children: React.ReactNode }) {
   return <span className="text-xs font-semibold tracking-[0.08em] text-muted">{children}</span>;
 }

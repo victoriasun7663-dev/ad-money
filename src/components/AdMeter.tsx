@@ -1,5 +1,8 @@
+import { copy } from "@/content/copy";
+
 // "Too few / Best / Too many" bar. Scale runs 0–15 ad-minutes per hour.
 const MAX = 15;
+const t = copy.result.meter;
 
 export function AdMeter({ you, best }: { you: number; best: number }) {
   const pct = (v: number) => Math.min(98, Math.max(2, (v / MAX) * 100));
@@ -8,10 +11,10 @@ export function AdMeter({ you, best }: { you: number; best: number }) {
   return (
     <div className="flex flex-col gap-3.5 rounded-2xl border border-line bg-panel p-[18px]">
       <div className="flex items-baseline justify-between">
-        <strong className="text-[15px]">Your ads per hour</strong>
-        <span className="text-[13px] text-muted">minutes</span>
+        <strong className="text-[15px]">{t.title}</strong>
+        <span className="text-[13px] text-muted">{t.unit}</span>
       </div>
-      <div className="relative h-14" role="img" aria-label={`You run ${you.toFixed(1)} minutes of ads per hour. Best is ${Math.round(best)}.`}>
+      <div className="relative h-14" role="img" aria-label={t.ariaLabel(you.toFixed(1), Math.round(best))}>
         <div className="absolute inset-x-0 top-[22px] flex h-3 overflow-hidden rounded-md">
           <div className="bg-[#3a3150]" style={{ flex: lo }} />
           <div className="bg-money" style={{ flex: hi - lo }} />
@@ -19,18 +22,18 @@ export function AdMeter({ you, best }: { you: number; best: number }) {
         </div>
         <div className="absolute top-0 flex -translate-x-1/2 flex-col items-center" style={{ left: `${pct(you)}%` }}>
           <span className="whitespace-nowrap rounded-md bg-[#2a2240] px-1.5 py-0.5 text-xs font-semibold">
-            You · {you.toFixed(1)}
+            {t.you(you.toFixed(1))}
           </span>
           <div className="mt-0.5 h-[26px] w-[3px] rounded-sm bg-ink" />
         </div>
       </div>
       <div className="flex text-xs text-muted">
-        <span style={{ flex: lo }}>Too few</span>
+        <span style={{ flex: lo }}>{t.tooFew}</span>
         <span className="whitespace-nowrap font-semibold text-money" style={{ flex: hi - lo }}>
-          Best: {Math.round(best)}
+          {t.best(Math.round(best))}
         </span>
         <span className="text-right" style={{ flex: MAX - hi }}>
-          Too many
+          {t.tooMany}
         </span>
       </div>
     </div>

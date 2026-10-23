@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { copy } from "@/content/copy";
 import { useAdMoney } from "@/lib/store";
 import type { Analysis } from "@/lib/model";
 import { Screen, buttonPrimary } from "./ui";
@@ -12,9 +13,9 @@ export function NeedsData({ children }: { children: (a: Analysis) => React.React
     return (
       <Screen>
         <div className="my-auto flex flex-col gap-4 text-center">
-          <p className="text-soft">We need your Twitch file first.</p>
+          <p className="text-soft">{copy.needsData.message}</p>
           <Link href="/upload" className={buttonPrimary}>
-            Get started
+            {copy.needsData.cta}
           </Link>
         </div>
       </Screen>

@@ -1,4 +1,7 @@
+import { copy } from "@/content/copy";
 import type { StreamDay } from "./model";
+
+const err = copy.upload.errors;
 
 // Reads a Twitch Channel Analytics export. Column names shift over time,
 // so we match on loose keywords instead of exact headers.
@@ -32,7 +35,7 @@ export type ParseResult =
 
 export function parseTwitchCsv(text: string): ParseResult {
   const lines = text.split(/\r?\n/).filter((l) => l.trim());
-  if (lines.length < 2) return { ok: false, error: "That file looks empty." };
+  if (lines.length < 2) return { ok: false, error: err.empty };
 
   const headers = splitRow(lines[0]).map((h) => h.toLowerCase());
   const col = {
@@ -45,14 +48,14 @@ export function parseTwitchCsv(text: string): ParseResult {
   };
 
   const missing = [
-    col.viewers < 0 && "average viewers",
-    col.adMinutes < 0 && "ad minutes",
-    col.adRevenue < 0 && "ad revenue",
+    col.viewers < 0 && err.columnNames.viewers,
+    col.adMinutes < 0 && err.columnNames.adMinutes,
+    col.adRevenue < 0 && err.columnNames.adRevenue,
   ].filter(Boolean);
   if (missing.length) {
     return {
       ok: false,
-      error: `We couldn't find ${missing.join(", ")} in this file. Make sure it's the Channel Analytics export.`,
+      error: err.missingColumns(missing.join(", ")),
     };
   }
 
@@ -73,7 +76,7 @@ export function parseTwitchCsv(text: string): ParseResult {
   }
 
   if (days.length < 5) {
-    return { ok: false, error: "We need at least 5 stream days with ads to give you a real answer." };
+    return { ok: false, error: err.tooFewDays };
   }
   return { ok: true, days, skipped };
 }

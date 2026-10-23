@@ -2,15 +2,12 @@
 
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import { copy } from "@/content/copy";
 import { parseTwitchCsv } from "@/lib/csv";
 import { useAdMoney } from "@/lib/store";
-import { Screen, TopBar, buttonSecondary } from "@/components/ui";
+import { Rich, Screen, TopBar, buttonSecondary } from "@/components/ui";
 
-const steps = [
-  <>Go to <strong>dashboard.twitch.tv</strong> and open <strong>Analytics</strong></>,
-  <>Pick <strong>Last 30 days</strong></>,
-  <>Click <strong>Export</strong>. A file downloads.</>,
-];
+const t = copy.upload;
 
 export default function Upload() {
   const { setDays, loadSample } = useAdMoney();
@@ -32,17 +29,19 @@ export default function Upload() {
       <TopBar back="/" step={[1, 2]} />
 
       <div className="flex flex-col gap-2">
-        <h1 className="font-display text-3xl font-bold leading-tight">Grab your Twitch file</h1>
-        <p className="text-soft">About 1 minute. Easiest on a computer.</p>
+        <h1 className="font-display text-3xl font-bold leading-tight">{t.title}</h1>
+        <p className="text-soft">{t.sub}</p>
       </div>
 
       <ol className="flex flex-col gap-2.5">
-        {steps.map((s, i) => (
+        {t.steps.map((s, i) => (
           <li key={i} className="flex items-center gap-3.5 rounded-2xl border border-line bg-panel p-3.5 text-[15px]">
             <span className="flex size-[30px] flex-none items-center justify-center rounded-full bg-[#2a2240] text-sm font-semibold">
               {i + 1}
             </span>
-            <span>{s}</span>
+            <span>
+              <Rich text={s} />
+            </span>
           </li>
         ))}
       </ol>
@@ -62,16 +61,16 @@ export default function Upload() {
           dragging ? "border-brand bg-[#1d1730]" : "border-[#4a3f63] bg-panel-2"
         }`}
       >
-        <strong>Drop the file here</strong>
+        <strong>{t.dropTitle}</strong>
         <button
           type="button"
           onClick={() => input.current?.click()}
           className="h-11 rounded-xl bg-brand px-5 text-[15px] font-semibold text-brand-ink"
         >
-          Choose file
+          {t.chooseFile}
         </button>
         <input ref={input} type="file" accept=".csv,text/csv" className="hidden" onChange={(e) => handle(e.target.files?.[0])} />
-        <span className="text-[13px] text-muted">It ends in .csv</span>
+        <span className="text-[13px] text-muted">{t.fileHint}</span>
       </div>
 
       {error && (
@@ -83,7 +82,7 @@ export default function Upload() {
       <div className="mt-auto flex flex-col gap-2.5">
         {/* Slot for Twitch login. Note: Twitch's API doesn't expose ad revenue, so this may still need the CSV. */}
         <button type="button" disabled className={`${buttonSecondary} text-muted`}>
-          Connect with Twitch · coming soon
+          {t.connectTwitch}
         </button>
         <button
           type="button"
@@ -93,7 +92,7 @@ export default function Upload() {
             router.push("/result");
           }}
         >
-          No file? Try an example channel
+          {t.tryExample}
         </button>
       </div>
     </Screen>
