@@ -37,7 +37,8 @@ export function TopBar({ back, step, title }: { back?: string; step?: [number, n
   );
 }
 
-const buttonBase = "flex items-center justify-center gap-2 rounded-2xl font-semibold";
+const buttonBase =
+  "flex items-center justify-center gap-2 rounded-2xl font-semibold disabled:cursor-not-allowed disabled:opacity-50";
 export const buttonPrimary = `${buttonBase} h-14 bg-brand text-brand-ink text-[17px]`;
 export const buttonSecondary = `${buttonBase} h-12 border border-[#3a3150] text-[15px] font-medium`;
 

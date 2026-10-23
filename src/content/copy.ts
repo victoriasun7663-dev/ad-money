@@ -99,9 +99,61 @@ export const copy = {
       `Set it to run **every ${every} minutes**`,
       "Stream like normal. That's it.",
     ],
-    checkBack: "Come back in 30 days with a new file to see if it worked.",
-    remind: "Remind me in 30 days",
+    commitLabel: "LOCK IT IN",
+    commitBody: "Get your plan by email now, and a check-in in 30 days to see if it worked.",
+    emailLabel: "Your email",
+    emailPlaceholder: "you@example.com",
+    emailCta: "Email me my plan",
+    emailSending: "Sending…",
+    emailSent: (date: string) => `Sent. Check your inbox. We'll check in on ${date}.`,
+    emailInvalid: "That email doesn't look right.",
+    emailError: "Couldn't send right now. Add it to your calendar instead:",
+    emailOff: "Email isn't switched on yet. Add it to your calendar instead:",
+    emailFinePrint: "Just your plan and one reminder. No spam.",
+    calendarToggle: "Or add a reminder to my calendar",
+    remindGoogle: "Google Calendar",
+    remindIcs: "Apple or Outlook",
+    remindEvent: {
+      title: "Ad Money: check if your new ad plan worked",
+      details: (rule: string) =>
+        `Export your last 30 days from Twitch Analytics and upload it again. Your rule was: ${rule}.`,
+    },
     sendManager: "Send to my manager",
+    shareTitle: "My Twitch ad plan",
+    shareLead: {
+      more: (amount: string) => `I could make about ${amount} more a month from Twitch ads.`,
+      cut: (minutes: number, pct: number) =>
+        `I can cut ${minutes} min of ads per stream and keep ${pct}% of my ad money.`,
+      right: "My Twitch ads are already at the right level.",
+    },
+    shareBody: (rule: string, easy: string) => `The plan: ${rule}. ${easy}`,
+    shareCopied: "Copied. Paste it to your manager.",
+    shareFailed: "Couldn't share. Take a screenshot of this page instead.",
+  },
+
+  // The two emails sent from the plan screen.
+  email: {
+    planSubject: (rule: string) => `Your Twitch ad plan: ${rule}`,
+    lead: {
+      more: (amount: string) => `You could make about ${amount} more a month from Twitch ads.`,
+      cut: (minutes: number, pct: number) =>
+        `You can cut ${minutes} min of ads per stream and keep ${pct}% of your ad money.`,
+      right: "Your Twitch ads are already at the right level.",
+    },
+    planIntro: "Here's what you committed to. Set it up once and stream like normal.",
+    ruleLabel: "The one rule",
+    stepsLabel: "Set it up once",
+    planOutro: (date: string) => `We'll email you on ${date} to check if it worked. Have your Twitch export ready.`,
+    reminderSubject: "Did your new ad plan work?",
+    reminderIntro: "It's been 30 days. Time to see if your new ad plan paid off.",
+    reminderSteps: [
+      "Go to dashboard.twitch.tv and open Analytics",
+      "Pick Last 30 days and click Export",
+      "Upload the file at ad-money.vercel.app",
+    ],
+    reminderPlanLabel: "Your plan was",
+    cta: "Check my channel",
+    footer: "You're getting this because you asked Ad Money to email your plan. Reply to stop the reminder.",
   },
 
   details: {
