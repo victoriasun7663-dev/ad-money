@@ -1,0 +1,39 @@
+# Deploys to Vercel on every push to main, using the Vercel CLI.
+# Used instead of Vercel's GitHub app, which can't read this repo (git_info_fail).
+name: Deploy to Vercel
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: vercel-production
+  cancel-in-progress: true
+
+env:
+  # Not secret: these only say which Vercel team and project to deploy to.
+  VERCEL_ORG_ID: team_kjHKJ9eMx7PTsRHRSwNtFrak
+  VERCEL_PROJECT_ID: prj_uWQBkzq9SwPP3JShfhNdfg3vhdbt
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@63.1.0
+
+      - name: Pull project settings
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Build
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: Deploy
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
