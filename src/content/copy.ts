@@ -5,7 +5,7 @@
 export const copy = {
   brand: {
     name: "Ad Money",
-    tagline: "For Twitch streamers",
+    tagline: "Made by V for Twitch streamers",
     metaDescription: "Find out, in dollars, if your Twitch ads are paying you or just annoying chat.",
   },
 
