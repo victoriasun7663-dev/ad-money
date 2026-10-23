@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+/* "Late-night stream" palette, matching the mockups. */
+@theme inline {
+  --color-ground: #0f0c17;
+  --color-panel: #1a1626;
+  --color-panel-2: #15111f;
+  --color-line: #2e2640;
+  --color-ink: #f4f1fa;
+  --color-soft: #c8c0d8;
+  --color-muted: #a79dbb;
+  --color-faint: #8c82a0;
+  --color-brand: #b48cff;
+  --color-brand-ink: #140f1f;
+  --color-link: #c9a9ff;
+  --color-money: #4ade9a;
+  --color-money-bg: #16241e;
+  --color-money-line: #2c5a44;
+  --color-warn: #ffb357;
+  --color-warn-dim: #8a5a1e;
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-grotesk);
+}
+
+body {
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
