@@ -10,8 +10,8 @@ export const copy = {
   },
 
   hook: {
-    headline: "Are your ads paying you, or just",
-    headlineAccent: "annoying chat?",
+    headline: "Find your ad",
+    headlineAccent: "sweet spot",
     sub: "Upload one file from Twitch. In 2 minutes you'll know, in dollars, what to change.",
     perksLabel: "YOU GET",
     perks: [
