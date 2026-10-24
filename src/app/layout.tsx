@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import { copy } from "@/content/copy";
 import { AdMoneyProvider } from "@/lib/store";
 import "./globals.css";
@@ -17,6 +18,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={`${inter.variable} ${grotesk.variable} antialiased`}>
         <AdMoneyProvider>{children}</AdMoneyProvider>
+        <Analytics />
       </body>
     </html>
   );
