@@ -15,8 +15,8 @@ export const copy = {
     email: "contact@victoriasun.io",
     emailLabel: "Email me",
     // Twitter/X handle without the @. Leave empty to hide the DM link.
-    twitterHandle: "",
-    twitterLabel: "DM me on X",
+    twitterHandle: "its_vikkisun",
+    twitterLabel: "DM me on X (@its_vikkisun)",
     joiner: "or",
   },
 
