@@ -9,6 +9,17 @@ export const copy = {
     metaDescription: "Find out, in dollars, if your Twitch ads are paying you or just annoying chat.",
   },
 
+  // Shown at the bottom of every screen and after errors.
+  support: {
+    prompt: "Something not working?",
+    email: "contact@victoriasun.io",
+    emailLabel: "Email me",
+    // Twitter/X handle without the @. Leave empty to hide the DM link.
+    twitterHandle: "",
+    twitterLabel: "DM me on X",
+    joiner: "or",
+  },
+
   hook: {
     headline: "Find your ad",
     headlineAccent: "sweet spot",

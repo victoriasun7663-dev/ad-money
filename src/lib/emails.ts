@@ -25,6 +25,7 @@ function shell(body: string) {
 ${body}
 <p style="margin:32px 0 0"><a href="${SITE}" style="display:inline-block;background:#b48cff;color:#140f1f;font-weight:600;text-decoration:none;padding:14px 22px;border-radius:12px">${esc(t.cta)}</a></p>
 <p style="font-size:12px;color:#6b6280;margin:32px 0 0">${esc(t.footer)}</p>
+<p style="font-size:12px;color:#6b6280;margin:8px 0 0">${esc(copy.support.prompt)} <a href="mailto:${copy.support.email}" style="color:#6b6280">${copy.support.email}</a></p>
 </div></body></html>`;
 }
 

@@ -1,5 +1,6 @@
 // Manager view. Example rows for now — real rows will come from each
 // creator's shared result once accounts/sharing exist.
+import { SupportLine } from "@/components/ui";
 import { copy } from "@/content/copy";
 
 const t = copy.manager;
@@ -72,6 +73,7 @@ export default function Manager() {
         </table>
       </div>
       <span className="text-xs text-faint">{t.footnote}</span>
+      <SupportLine />
     </main>
   );
 }

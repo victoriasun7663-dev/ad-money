@@ -1,8 +1,39 @@
 import Link from "next/link";
+import { copy } from "@/content/copy";
 
 export function Screen({ children }: { children: React.ReactNode }) {
   return (
-    <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-6 px-6 pb-8 pt-6">{children}</main>
+    <main className="mx-auto flex min-h-dvh max-w-md flex-col gap-6 px-6 pb-8 pt-6">
+      {children}
+      <SupportLine />
+    </main>
+  );
+}
+
+/** "Something not working? Email me or DM me on X" — on every screen. */
+export function SupportLine() {
+  const s = copy.support;
+  return (
+    <p className="text-center text-xs text-faint">
+      {s.prompt}{" "}
+      <a href={`mailto:${s.email}?subject=Ad%20Money`} className="text-link underline-offset-2 hover:underline">
+        {s.emailLabel}
+      </a>
+      {s.twitterHandle && (
+        <>
+          {" "}
+          {s.joiner}{" "}
+          <a
+            href={`https://x.com/${s.twitterHandle}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-link underline-offset-2 hover:underline"
+          >
+            {s.twitterLabel}
+          </a>
+        </>
+      )}
+    </p>
   );
 }
 
