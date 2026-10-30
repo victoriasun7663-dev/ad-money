@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { copy } from "@/content/copy";
 import { planEmail, reminderEmail, type PlanPayload } from "@/lib/emails";
 
 // POST /api/remind — emails the plan now, schedules the 30-day check-in,
@@ -53,17 +54,21 @@ export async function POST(req: Request) {
   };
   if (!plan.rule) return NextResponse.json({ error: "bad_request" }, { status: 400 });
 
+  // Replies ("stop the reminder") go to a real inbox.
+  const replyTo = process.env.RESEND_REPLY_TO || copy.support.email;
+
   const checkIn = new Date(Date.now() + CHECK_IN_MS);
   const checkInLabel = checkIn.toLocaleDateString("en-US", { month: "long", day: "numeric" });
 
   try {
     const now = planEmail(plan, checkInLabel);
-    await resend("/emails", { from, to: [email], subject: now.subject, html: now.html, text: now.text });
+    await resend("/emails", { from, to: [email], reply_to: replyTo, subject: now.subject, html: now.html, text: now.text });
 
     const later = reminderEmail(plan);
     await resend("/emails", {
       from,
       to: [email],
+      reply_to: replyTo,
       subject: later.subject,
       html: later.html,
       text: later.text,
